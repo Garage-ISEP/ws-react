@@ -9,18 +9,24 @@ export const BlogList = (props: any) => {
 
   const addArticle = (e: any) => {
     e.preventDefault();
-    const lastEl = data[data.length - 1];
-    const newArticle = {
-      id: lastEl.id + 1,
-      title: newTitle,
-      shortDescription: newDescription,
-      longDescription: newDescription,
-      likes: 0,
-      image: newImage,
-    };
-    const newData = [...data, { ...newArticle }];
-    setData(newData);
-    console.log('d', newData);
+    if (
+      newTitle.length >= 2 &&
+      newDescription.length >= 2 &&
+      newImage.length >= 2
+    ) {
+      const lastEl = data[data.length - 1];
+      const newArticle = {
+        id: lastEl.id + 1,
+        title: newTitle,
+        shortDescription:
+          newDescription.substring(0, newDescription.length / 2) + '...',
+        longDescription: newDescription,
+        likes: 0,
+        image: newImage,
+      };
+      const newData = [...data, { ...newArticle }];
+      setData(newData);
+    }
   };
 
   return (
@@ -36,7 +42,7 @@ export const BlogList = (props: any) => {
           key={item.id}
         />
       ))}{' '}
-      <div className="w-full max-w-xs">
+      <div className="w-1/3 text-lg mt-10 mb-10">
         <form onSubmit={addArticle}>
           <div className="mb-4">
             <label className="block font-bold mb-2 text-left">
